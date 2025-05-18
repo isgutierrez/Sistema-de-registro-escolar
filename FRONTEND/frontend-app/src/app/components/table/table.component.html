@@ -1,0 +1,31 @@
+<div class="mb-4">
+  <h2 class="text-xl font-semibold mb-2" *ngIf="title">{{ title }}</h2>
+
+  <p-table [value]="data" [loading]="loading">
+    <ng-container *ngFor="let col of columns">
+      <ng-template pTemplate="header" let-columns>
+        <th>{{ col.header }}</th>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData>
+        <td>{{ rowData[col.field] }}</td>
+      </ng-template>
+    </ng-container>
+
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th *ngFor="let col of columns">{{ col.header }}</th>
+        <th *ngIf="actions">Acciones</th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-rowData>
+      <tr>
+        <td *ngFor="let col of columns">{{ rowData[col.field] }}</td>
+        <td *ngIf="actions">
+          <button class="text-blue-500 hover:underline">Editar</button>
+          <button class="text-red-500 hover:underline ml-2">Eliminar</button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

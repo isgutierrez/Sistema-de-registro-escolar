@@ -1,7 +1,7 @@
 <div
   [class.w-64]="isOpen()"
   [class.w-16]="!isOpen()"
-  class="bg-gray-100 h-full p-4 transition-all duration-300 flex flex-col"
+  class="bg-gray-100 h-full p-4 transition-all duration-500 flex flex-col"
 >
   <button (click)="toggleSidebar()" class="mb-6 self-start p-2">
     <i class="pi pi-bars text-xl"></i>
@@ -18,7 +18,15 @@
       }"
     >
       <i [class]="item.icon + ' text-lg'"></i>
-      <span *ngIf="isOpen()">{{ item.label }}</span>
+      <span
+        [class.opacity-100]="isOpen()"
+        [class.opacity-0]="!isOpen()"
+        [class.w-auto]="isOpen()"
+        [class.w-0]="!isOpen()"
+        class="transition-all duration-300 whitespace-nowrap overflow-hidden"
+      >
+        {{ item.label }}
+      </span>
     </a>
   </nav>
 </div>
