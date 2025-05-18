@@ -1,0 +1,28 @@
+<div
+  class="flex items-center justify-end px-6 py-6 border-b bg-white shadow-sm relative"
+>
+  <div class="flex items-center gap-4">
+    <!-- Botón de usuario -->
+    <button
+      (click)="toggleMenu(); $event.stopPropagation()"
+      class="mr-6 text-gray-700 hover:text-blue-600 focus:outline-none"
+    >
+      <i class="pi pi-user text-xl"></i>
+    </button>
+
+    <!-- Menú desplegable del usuario -->
+    <div
+      *ngIf="showMenu()"
+      class="absolute right-6 top-14 mt-2 w-40 bg-white shadow-lg rounded-md border z-50"
+    >
+      <button
+        #menuRef
+        *ngIf="showMenu()"
+        (click)="$event.stopPropagation()"
+        class="block w-full text-center px-4 py-2 text-sm text-gray-700 hover:bg-red-50 hover:text-red-600"
+      >
+        Cerrar sesión
+      </button>
+    </div>
+  </div>
+</div>

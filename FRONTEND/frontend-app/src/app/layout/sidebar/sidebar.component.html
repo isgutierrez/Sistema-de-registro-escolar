@@ -1,0 +1,24 @@
+<div
+  [class.w-64]="isOpen()"
+  [class.w-16]="!isOpen()"
+  class="bg-gray-100 h-full p-4 transition-all duration-300 flex flex-col"
+>
+  <button (click)="toggleSidebar()" class="mb-6 self-start p-2">
+    <i class="pi pi-bars text-xl"></i>
+  </button>
+
+  <nav class="flex flex-col gap-4">
+    <a
+      *ngFor="let item of navItems"
+      [routerLink]="item.to"
+      class="flex items-center gap-3 p-2 rounded-md"
+      [ngClass]="{
+        'bg-blue-500 text-white': isActive(item.to),
+        'text-gray-700 hover:text-blue-500': !isActive(item.to)
+      }"
+    >
+      <i [class]="item.icon + ' text-lg'"></i>
+      <span *ngIf="isOpen()">{{ item.label }}</span>
+    </a>
+  </nav>
+</div>
