@@ -1,27 +1,49 @@
 package com.example.sistema_escolar.service.impl;
 
+import com.example.sistema_escolar.dto.EstudianteDTO;
 import com.example.sistema_escolar.model.Estudiante;
+import com.example.sistema_escolar.model.Persona;
 import com.example.sistema_escolar.repository.EstudianteRepository;
+import com.example.sistema_escolar.repository.PersonaRepository;
 import com.example.sistema_escolar.service.EstudianteService;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-import org.springframework.http.HttpStatus;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class EstudianteServiceImpl implements EstudianteService {
 
     private final EstudianteRepository estudianteRepository;
+    private final PersonaRepository personaRepository;
 
-    public EstudianteServiceImpl(EstudianteRepository estudianteRepository){
+    public EstudianteServiceImpl(
+        EstudianteRepository estudianteRepository,
+        PersonaRepository personaRepository
+    ) {
         this.estudianteRepository = estudianteRepository;
+        this.personaRepository = personaRepository;
     }
 
     @Override
-    public Estudiante guardarEstudiante(Estudiante estudiante){
-        return estudianteRepository.save(estudiante);
+    public Estudiante guardarEstudiante(EstudianteDTO dto){
+        Persona persona = new Persona();
+        persona.setNombre(dto.getNombre());
+        persona.setApellido(dto.getApellido());
+        persona.setEmail(dto.getEmail());
+        persona.setTelefono(dto.getTelefono());
+        persona.setFechaNacimiento(dto.getFechaNacimiento());
+
+        Persona personaGuardada = personaRepository.save(persona);
+
+        Estudiante estudiante = new Estudiante();
+        estudiante.setPersona(personaGuardada);
+        estudiante.setNumeroMatricula(dto.getNumeroMatricula());
+        estudiante.setGrado(dto.getGrado());
+
+        return estudianteRepository.save(estudiante);    
     }
 
     @Override

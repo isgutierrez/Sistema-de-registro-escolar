@@ -24,9 +24,8 @@ public class EstudianteController {
     }
 
     @PostMapping
-    public ResponseEntity<Estudiante> crearEstudiante(@RequestBody EstudianteDTO dto) {
-        Estudiante estudiante = estudianteService.guardarDesdeDTO(dto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(estudiante);
+    public ResponseEntity<Estudiante> crear(@RequestBody EstudianteDTO dto) {
+        return ResponseEntity.ok(estudianteService.guardarEstudiante(dto));
     }
 
     @GetMapping
