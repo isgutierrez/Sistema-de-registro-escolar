@@ -1,1 +1,35 @@
-<p>estudiantes works!</p>
+<div>
+  <h1 class="text-3xl">Estudiantes</h1>
+  <hr class="w-3/4 mt-2 bg-gray-100" />
+</div>
+
+<div class="flex justify-end mb-4">
+  <button
+    pButton
+    type="button"
+    label="Agregar Estudiante"
+    icon="pi pi-plus"
+    class="mt-2 px-4 py-1 p-button-sm bg-blue-600 hover:bg-blue-700 text-white rounded-md"
+    (click)="abrirModal()"
+  >
+    Añadir estudiante
+  </button>
+</div>
+
+<app-tabla
+  [columns]="columns"
+  [data]="estudiantes"
+  [loading]="loading"
+  [actions]="true"
+  (onEdit)="editar($event)"
+  (onDelete)="eliminar($event)"
+></app-tabla>
+
+<app-modalform
+  [visible]="modalVisible"
+  [title]="modalTitle"
+  [fields]="fields"
+  [formData]="formData"
+  (save)="guardarEstudiante($event)"
+  (close)="cerrarModal()"
+></app-modalform>

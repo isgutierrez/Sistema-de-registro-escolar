@@ -1,1 +1,36 @@
-<p>profesores works!</p>
+<div>
+  <h1 class="text-3xl">
+    Profesores
+  </h1>
+  <hr class="w-3/4 mt-2 bg-gray-100"/>
+</div>
+<div class="flex justify-end mb-4">
+  <button
+    pButton
+    type="button"
+    label="Agregar Profesor"
+    icon="pi pi-plus"
+    class="mt-2 px-4 py-1 p-button-sm bg-blue-600 hover:bg-blue-700 text-white rounded-md"
+    (click)="abrirModal()"
+  >
+    Añadir profesor
+  </button>
+</div>
+<app-tabla
+  [columns]="columns"
+  [data]="profesores"
+  [loading]="loading"
+  [actions]="true"
+  (onEdit)="abrirModal($event)"
+  (onDelete)="eliminar($event)"
+></app-tabla>
+
+<app-modalform
+  *ngIf="modalVisible"
+  [visible]="modalVisible"
+  [title]="selectedProfesor ? 'Editar Profesor' : 'Nuevo Profesor'"
+  [formData]="selectedProfesor"
+  [fields]="fields"
+  (save)="guardarProfesor($event)"
+  (close)="cerrarModal()"
+></app-modalform>

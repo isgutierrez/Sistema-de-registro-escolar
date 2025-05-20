@@ -1,1 +1,34 @@
-<p>personas works!</p>
+<div>
+  <h1 class="text-3xl">Personas</h1>
+  <hr class="w-3/4 mt-2 bg-gray-100" />
+</div>
+
+<div class="flex justify-end mb-4">
+<button
+  pButton
+  type="button"
+  label="Agregar Persona"
+  icon="pi pi-plus"
+  (click)="abrirModal()"
+  class="mt-2 px-4 py-1 p-button-sm bg-blue-600 hover:bg-blue-700 text-white rounded-md"
+>Añadir persona</button>
+</div>
+<app-tabla
+  [columns]="columns"
+  [data]="personas"
+  [loading]="loading"
+  [actions]="true"
+  (onEdit)="abrirModal($event)"
+  (onDelete)="eliminar($event)"
+>
+</app-tabla>
+
+<!-- Modal -->
+<app-modalform
+  [visible]="modalVisible"
+  [title]="'Formulario de Persona'"
+  [fields]="fields"
+  [formData]="selectedPersona"
+  (save)="guardarPersona($event)" 
+  (close)="cerrarModal()"
+></app-modalform>

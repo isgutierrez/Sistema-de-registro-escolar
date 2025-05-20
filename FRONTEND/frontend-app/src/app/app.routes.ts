@@ -14,6 +14,11 @@ export const routes: Routes = [
         component: MainComponent,
         children: [
             {
+                path: '',
+                redirectTo: 'dashboard',
+                pathMatch: 'full',
+            },
+            {
                 path: 'dashboard',
                 component: DashboardComponent,
             },
@@ -40,6 +45,10 @@ export const routes: Routes = [
             {
                 path: 'inscripciones',
                 component: InscripcionesComponent,
+            },
+            {
+                path: '**',
+                redirectTo: 'dashboard'
             }
         ]
     }
