@@ -28,7 +28,7 @@ export class ModalformComponent implements OnInit, OnChanges {
   @Input() visible = false;
   @Input() title = 'Formulario';
   @Input() formData: any = {};
-  @Input() fields: { name: string; label: string; type: string; required?: boolean }[] = [];
+  @Input() fields: { name: string; label: string; type: string; required?: boolean; options?: { label: string; value: any }[]; }[] = [];
 
   @Output() save = new EventEmitter<any>();
   @Output() close = new EventEmitter<void>();

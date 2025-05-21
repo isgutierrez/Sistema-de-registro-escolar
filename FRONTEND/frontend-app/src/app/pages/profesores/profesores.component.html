@@ -1,8 +1,6 @@
 <div>
-  <h1 class="text-3xl">
-    Profesores
-  </h1>
-  <hr class="w-3/4 mt-2 bg-gray-100"/>
+  <h1 class="text-3xl">Profesores</h1>
+  <hr class="w-3/4 mt-2 bg-gray-100" />
 </div>
 <div class="flex justify-end mb-4">
   <button
@@ -24,13 +22,18 @@
   (onEdit)="abrirModal($event)"
   (onDelete)="eliminar($event)"
 ></app-tabla>
+<p-paginator
+  [rows]="pageSize"
+  [totalRecords]="totalElements"
+  [first]="currentPage * pageSize"
+  (onPageChange)="onPageChange($event)">
+</p-paginator>
 
 <app-modalform
-  *ngIf="modalVisible"
   [visible]="modalVisible"
-  [title]="selectedProfesor ? 'Editar Profesor' : 'Nuevo Profesor'"
-  [formData]="selectedProfesor"
+  [title]="modalTitle"
   [fields]="fields"
+  [formData]="formData"
   (save)="guardarProfesor($event)"
   (close)="cerrarModal()"
 ></app-modalform>

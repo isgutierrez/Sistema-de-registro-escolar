@@ -1,5 +1,9 @@
 package com.example.sistema_escolar.controller;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
+
 import com.example.sistema_escolar.model.Persona;
 import com.example.sistema_escolar.service.PersonaService;
 import org.springframework.http.ResponseEntity;
@@ -19,8 +23,13 @@ public class PersonaController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Persona>> listar() {
-        return ResponseEntity.ok(personaService.obtenerPersonas());
+    public ResponseEntity<Page<Persona>> listarPersonas(
+        @RequestParam(defaultValue = "0") int page,
+        @RequestParam(defaultValue = "10") int size) {
+
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Persona> personas = personaService.listarPersonas(pageable);
+        return ResponseEntity.ok(personas);
     }
 
     @GetMapping("/{id}")

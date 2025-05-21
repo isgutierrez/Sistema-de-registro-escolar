@@ -4,14 +4,16 @@
 </div>
 
 <div class="flex justify-end mb-4">
-<button
-  pButton
-  type="button"
-  label="Agregar Persona"
-  icon="pi pi-plus"
-  (click)="abrirModal()"
-  class="mt-2 px-4 py-1 p-button-sm bg-blue-600 hover:bg-blue-700 text-white rounded-md"
->Añadir persona</button>
+  <button
+    pButton
+    type="button"
+    label="Agregar Persona"
+    icon="pi pi-plus"
+    (click)="abrirModal()"
+    class="mt-2 px-4 py-1 p-button-sm bg-blue-600 hover:bg-blue-700 text-white rounded-md"
+  >
+    Añadir persona
+  </button>
 </div>
 <app-tabla
   [columns]="columns"
@@ -22,13 +24,19 @@
   (onDelete)="eliminar($event)"
 >
 </app-tabla>
+<p-paginator
+  [rows]="pageSize"
+  [totalRecords]="totalElements"
+  [first]="currentPage * pageSize"
+  (onPageChange)="onPageChange($event)"
+>
+</p-paginator>
 
-<!-- Modal -->
 <app-modalform
   [visible]="modalVisible"
   [title]="'Formulario de Persona'"
   [fields]="fields"
-  [formData]="selectedPersona"
-  (save)="guardarPersona($event)" 
+  [formData]="formData"
+  (save)="guardarPersona($event)"
   (close)="cerrarModal()"
 ></app-modalform>

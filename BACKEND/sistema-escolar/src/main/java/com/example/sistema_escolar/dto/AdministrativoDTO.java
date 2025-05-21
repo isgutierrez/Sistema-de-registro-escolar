@@ -2,14 +2,14 @@ package com.example.sistema_escolar.dto;
 
 import java.time.LocalDate;
 
-public class EstudianteDTO {
+public class AdministrativoDTO {
     private String nombre;
     private String apellido;
     private String email;
     private String telefono;
     private LocalDate fechaNacimiento;
-    private String numeroMatricula;
-    private int grado;
+    private String cargo;
+    private String departamento;
 
     // Getters y setters
     public String getNombre() { return nombre; }
@@ -27,9 +27,9 @@ public class EstudianteDTO {
     public LocalDate getFechaNacimiento() { return fechaNacimiento; }
     public void setFechaNacimiento(LocalDate fechaNacimiento) { this.fechaNacimiento = fechaNacimiento; }
 
-    public String getNumeroMatricula() { return numeroMatricula; }
-    public void setNumeroMatricula(String numeroMatricula) { this.numeroMatricula = numeroMatricula; }
+    public String getCargo() { return cargo; }
+    public void setCargo(String cargo) { this.cargo = cargo; }
 
-    public int getGrado() { return grado; }
-    public void setGrado(int grado) { this.grado = grado; }
+    public String getDepartamento() { return departamento; }
+    public void setDepartamento(String departamento) { this.departamento = departamento; }
 }

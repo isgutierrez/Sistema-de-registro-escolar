@@ -9,15 +9,28 @@
 
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
       <div *ngFor="let field of fields" class="mb-4">
-        <label [for]="field.name" class="block font-medium mb-1">{{ field.label }}</label>
-
+        <label [for]="field.name" class="block font-medium mb-1">{{
+          field.label
+        }}</label>
+        <select
+          *ngIf="field.type === 'select'"
+          class="w-full border border-gray-300 p-2 rounded"
+          [formControlName]="field.name"
+        >
+          <option value="">-- Selecciona --</option>
+          <option *ngFor="let option of field.options" [value]="option.value">
+            {{ option.label }}
+          </option>
+        </select>
         <!-- Input types -->
         <input
-          *ngIf="field.type !== 'date'"
+          *ngIf="field.type !== 'select' && field.type !== 'date'"
           [type]="field.type"
           class="w-full border border-gray-300 p-2 rounded"
           [formControlName]="field.name"
-          (keypress)="field.type === 'tel' ? validateNumericInput($event) : null"
+          (keypress)="
+            field.type === 'tel' ? validateNumericInput($event) : null
+          "
         />
         <input
           *ngIf="field.type === 'date'"
@@ -27,17 +40,28 @@
         />
 
         <!-- Error message -->
-        <div class="text-red-600 text-sm mt-1" *ngIf="form.get(field.name)?.touched && form.get(field.name)?.invalid">
+        <div
+          class="text-red-600 text-sm mt-1"
+          *ngIf="form.get(field.name)?.touched && form.get(field.name)?.invalid"
+        >
           {{ getErrorMessage(field.name) }}
         </div>
       </div>
 
       <!-- Buttons -->
       <div class="flex justify-end gap-2">
-        <button type="button" (click)="onClose()" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">
+        <button
+          type="button"
+          (click)="onClose()"
+          class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
+        >
           Cancelar
         </button>
-        <button type="submit" [disabled]="form.invalid" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+        <button
+          type="submit"
+          [disabled]="form.invalid"
+          class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+        >
           Guardar
         </button>
       </div>

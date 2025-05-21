@@ -1,20 +1,41 @@
-<div class="mb-4">
-  <h2 *ngIf="title">{{ title }}</h2>
+<div class="mb-6">
+  <h2 *ngIf="title" class="text-xl font-semibold mb-4 text-gray-700">{{ title }}</h2>
 
-  <p-table [value]="data" [loading]="loading">
+  <p-table
+    [value]="data"
+    [loading]="loading"
+    class="shadow rounded-lg overflow-hidden"
+    [styleClass]="'w-full border border-gray-200 rounded-lg overflow-hidden text-sm text-gray-700'"
+  >
     <ng-template pTemplate="header">
-      <tr>
-        <th *ngFor="let col of columns">{{ col.header }}</th>
-        <th *ngIf="actions">Acciones</th>
+      <tr class="bg-gray-100 text-gray-800 uppercase text-xs">
+        <th
+          *ngFor="let col of columns"
+          class="px-4 py-3 text-center font-semibold tracking-wider border-b border-gray-200"
+        >
+          {{ col.header }}
+        </th>
+        <th *ngIf="actions" class="px-4 py-3 text-left font-semibold border-b border-gray-200">Acciones</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-rowData>
-      <tr>
-        <td *ngFor="let col of columns">{{ rowData[col.field] }}</td>
-        <td *ngIf="actions">
-          <button (click)="onEdit.emit(rowData)" class="bg-green-600 text-white px-4 rounded-md">Editar</button>
-          <br/>
-          <button (click)="onDelete.emit(rowData)" class="bg-red-600 text-white px-4 rounded-md">Eliminar</button>
+      <tr class="hover:bg-gray-50 transition">
+        <td *ngFor="let col of columns" class="px-4 py-2 border-b text-center border-gray-100">
+          {{ rowData[col.field] }}
+        </td>
+        <td *ngIf="actions" class="px-4 py-2 border-b border-gray-100 space-x-2">
+          <button
+            (click)="onEdit.emit(rowData)"
+            class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-md text-xs"
+          >
+            Editar
+          </button>
+          <button
+            (click)="onDelete.emit(rowData)"
+            class="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded-md text-xs"
+          >
+            Eliminar
+          </button>
         </td>
       </tr>
     </ng-template>

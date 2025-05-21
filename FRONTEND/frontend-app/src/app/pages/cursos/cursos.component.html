@@ -4,3 +4,41 @@
   </h1>
   <hr class="w-3/4 mt-2 bg-gray-100"/>
 </div>
+<div class="flex justify-end mb-4">
+  <button
+    pButton
+    type="button"
+    label="Agregar Curso"
+    icon="pi pi-plus"
+    (click)="abrirModal()"
+    class="mt-2 px-4 py-1 p-button-sm bg-blue-600 hover:bg-blue-700 text-white rounded-md"
+  >
+    Añadir Curso
+  </button>
+</div>
+<app-tabla
+  [columns]="columns"
+  [data]="cursos"
+  [loading]="loading"
+  [actions]="true"
+  (onEdit)="abrirModal($event)"
+  (onDelete)="eliminar($event)"
+>
+</app-tabla>
+<p-paginator
+  [rows]="pageSize"
+  [totalRecords]="totalElements"
+  [first]="currentPage * pageSize"
+  (onPageChange)="onPageChange($event)"
+>
+</p-paginator>
+
+<app-modalform
+  *ngIf="modalVisible"
+  [visible]="modalVisible"
+  [title]="modalTitle"
+  [formData]="formData"
+  [fields]="fields"
+  (save)="guardarCurso($event)"
+  (close)="cerrarModal()"
+></app-modalform>

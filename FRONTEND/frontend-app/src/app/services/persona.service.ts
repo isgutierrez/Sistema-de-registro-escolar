@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 
@@ -7,27 +7,30 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class PersonaService {
-  private apiUrl = `${environment.apiUrl}/personas`;
+  private baseUrl = `${environment.apiUrl}/personas`;
 
   constructor(private http: HttpClient) {}
 
-  getAll(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl);
+  getPaginated(page: number = 0, size: number = 10): Observable<any> {
+    const params = new HttpParams()
+      .set('page', page.toString())
+      .set('size', size.toString());
+    return this.http.get<any>(this.baseUrl, { params });
   }
 
   getById(id: number): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/${id}`);
+    return this.http.get(`${this.baseUrl}/${id}`);
   }
 
-  create(persona: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl, persona);
+  create(data: any): Observable<any> {
+    return this.http.post(this.baseUrl, data);
   }
 
-  update(id: number, persona: any): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/${id}`, persona);
+  update(id: number, data: any): Observable<any> {
+    return this.http.put(`${this.baseUrl}/${id}`, data);
   }
 
   delete(id: number): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}/${id}`);
+    return this.http.delete(`${this.baseUrl}/${id}`);
   }
 }

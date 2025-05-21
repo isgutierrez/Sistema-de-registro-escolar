@@ -1,8 +1,11 @@
 package com.example.sistema_escolar.controller;
 
+import com.example.sistema_escolar.dto.CursoDTO;
 import com.example.sistema_escolar.model.Curso;
 import com.example.sistema_escolar.service.CursoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,8 +22,8 @@ public class CursoController {
     }
 
     @GetMapping
-    public List<Curso> listar() {
-        return cursoService.listar();
+    public ResponseEntity<Page<Curso>> listar(Pageable pageable) {
+        return ResponseEntity.ok(cursoService.listar(pageable));
     }
 
     @GetMapping("/{id}")
@@ -29,13 +32,14 @@ public class CursoController {
     }
 
     @PostMapping
-    public ResponseEntity<Curso> crear(@RequestBody Curso curso) {
-        return ResponseEntity.ok(cursoService.guardar(curso));
+    public ResponseEntity<Curso> crear(@RequestBody CursoDTO dto) {
+        Curso curso = cursoService.guardar(dto);
+        return ResponseEntity.ok(curso);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Curso> actualizar(@PathVariable Long id, @RequestBody Curso curso) {
-        return ResponseEntity.ok(cursoService.actualizar(id, curso));
+    public ResponseEntity<Curso> actualizar(@PathVariable Long id, @RequestBody CursoDTO dto) {
+        return ResponseEntity.ok(cursoService.actualizar(id, dto));
     }
 
     @DeleteMapping("/{id}")

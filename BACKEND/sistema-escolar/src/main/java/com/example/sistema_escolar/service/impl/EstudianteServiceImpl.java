@@ -6,6 +6,8 @@ import com.example.sistema_escolar.model.Persona;
 import com.example.sistema_escolar.repository.EstudianteRepository;
 import com.example.sistema_escolar.repository.PersonaRepository;
 import com.example.sistema_escolar.service.EstudianteService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -29,26 +31,37 @@ public class EstudianteServiceImpl implements EstudianteService {
 
     @Override
     public Estudiante guardarEstudiante(EstudianteDTO dto){
-        Persona persona = new Persona();
-        persona.setNombre(dto.getNombre());
-        persona.setApellido(dto.getApellido());
-        persona.setEmail(dto.getEmail());
-        persona.setTelefono(dto.getTelefono());
-        persona.setFechaNacimiento(dto.getFechaNacimiento());
+        try {
+            Persona persona = new Persona();
+            persona.setNombre(dto.getNombre());
+            persona.setApellido(dto.getApellido());
+            persona.setEmail((dto.getEmail() != null && !dto.getEmail().isBlank()) ? dto.getEmail() : null);
+            persona.setTelefono((dto.getTelefono() != null && !dto.getTelefono().isBlank()) ? dto.getTelefono() : null);
+            persona.setFechaNacimiento(dto.getFechaNacimiento());
 
-        Persona personaGuardada = personaRepository.save(persona);
+            Persona personaGuardada = personaRepository.save(persona);
+            System.out.println("✅ Persona guardada con ID: " + personaGuardada.getId());
 
-        Estudiante estudiante = new Estudiante();
-        estudiante.setPersona(personaGuardada);
-        estudiante.setNumeroMatricula(dto.getNumeroMatricula());
-        estudiante.setGrado(dto.getGrado());
+            Estudiante estudiante = new Estudiante();
+            estudiante.setPersona(personaGuardada);
+            estudiante.setId(personaGuardada.getId()); // MUY IMPORTANTE para @MapsId
+            estudiante.setNumeroMatricula(dto.getNumeroMatricula());
+            estudiante.setGrado(dto.getGrado());
 
-        return estudianteRepository.save(estudiante);    
+            Estudiante saved = estudianteRepository.save(estudiante);
+            System.out.println("✅ Estudiante guardado con ID: " + saved.getId());
+
+            return saved;
+        } catch (Exception e) {
+            System.err.println("❌ Error guardando estudiante:");
+            e.printStackTrace(); // Esto sí lo verás en `docker logs backend_escolar`
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error al guardar estudiante");
+        }
     }
 
     @Override
-    public List<Estudiante> listarEstudiante(){
-        return estudianteRepository.findAll();
+    public Page<Estudiante> listarEstudiantes(Pageable pageable) {
+        return estudianteRepository.findAll(pageable);
     }
 
     @Override

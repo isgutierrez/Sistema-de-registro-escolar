@@ -20,7 +20,7 @@ public class Curso {
     private int creditos;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "id_profesor", nullable = false)
+    @JoinColumn(name = "id_profesor")
     private Profesor profesor;
 
     // getters y setters

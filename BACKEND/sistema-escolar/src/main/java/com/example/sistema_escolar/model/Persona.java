@@ -18,7 +18,6 @@ public class Persona {
     private String apellido;
 
     @Email(message = "Email inválido")
-    @NotBlank
     private String email;
 
     @Pattern(regexp = "\\d+", message = "Teléfono debe ser numérico")

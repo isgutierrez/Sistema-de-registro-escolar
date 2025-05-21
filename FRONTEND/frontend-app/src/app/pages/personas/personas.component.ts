@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { PaginatorModule } from 'primeng/paginator';
 import { TableComponent } from '../../components/table/table.component';
 import { ModalformComponent } from '../../components/modalform/modalform.component';
 import { PersonaService } from '../../services/persona.service';
@@ -10,7 +10,7 @@ import { PersonaService } from '../../services/persona.service';
 @Component({
   selector: 'app-personas',
   standalone: true,
-  imports: [CommonModule, TableComponent, ModalformComponent, ReactiveFormsModule],
+  imports: [CommonModule, TableComponent, ModalformComponent, ReactiveFormsModule, PaginatorModule],
   templateUrl: './personas.component.html',
   styleUrl: './personas.component.css'
 })
@@ -24,10 +24,15 @@ export class PersonasComponent implements OnInit {
     { field: 'fechaNacimiento', header: 'Fecha Nacimiento' }
   ];
 
+  formData: any = {};
   loading = false;
   modalVisible = false;
   selectedPersona: any = null;
   modalTitle = 'Registrar Persona';
+
+  totalElements = 0;
+  pageSize = 10;
+  currentPage = 0;
 
   fields = [
     { name: 'nombre', label: 'Nombre', type: 'text', required: true },
@@ -37,26 +42,53 @@ export class PersonasComponent implements OnInit {
     { name: 'fechaNacimiento', label: 'Fecha de Nacimiento', type: 'date', required: true }
   ];
 
-  constructor(private personaService: PersonaService, private fb: FormBuilder) {}
+  constructor(private personaService: PersonaService, private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.cargarPersonas();
   }
 
-  cargarPersonas(): void {
+  cargarPersonas(page: number = 0, size: number = 10): void {
     this.loading = true;
-    this.personaService.getAll().subscribe({
-      next: (res) => {
-        this.personas = res;
+    this.personaService.getPaginated(page, size).subscribe({
+      next: (res: any) => {
+        this.personas = res.content;
+        this.totalElements = res.totalElements;
+        this.pageSize = res.size;
+        this.currentPage = res.number;
         this.loading = false;
       },
-      error: () => (this.loading = false)
+      error: () => {
+        this.loading = false;
+      }
     });
+  }
+
+  onPageChange(event: any): void {
+    this.cargarPersonas(event.page, event.rows);
   }
 
   abrirModal(persona?: any): void {
     this.selectedPersona = persona || null;
     this.modalTitle = persona ? 'Editar Persona' : 'Registrar Persona';
+
+    this.formData = persona
+      ? {
+        id: persona.id, 
+        nombre: persona.nombre,
+        apellido: persona.apellido,
+        email: persona.email,
+        telefono: persona.telefono,
+        fechaNacimiento: persona.fechaNacimiento
+      }
+      : {
+        nombre: '',
+        apellido: '',
+        email: '',
+        telefono: '',
+        fechaNacimiento: ''
+      };
+
     this.modalVisible = true;
   }
 

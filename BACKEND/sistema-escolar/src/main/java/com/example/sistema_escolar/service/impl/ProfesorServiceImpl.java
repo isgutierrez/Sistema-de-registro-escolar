@@ -6,6 +6,9 @@ import com.example.sistema_escolar.model.Profesor;
 import com.example.sistema_escolar.repository.PersonaRepository;
 import com.example.sistema_escolar.repository.ProfesorRepository;
 import com.example.sistema_escolar.service.ProfesorService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,8 +46,8 @@ public class ProfesorServiceImpl implements ProfesorService {
     }
 
     @Override
-    public List<Profesor> listarProfesores() {
-        return profesorRepository.findAll();
+    public Page<Profesor> listarProfesores(Pageable pageable) {
+        return profesorRepository.findAll(pageable);
     }
 
     @Override

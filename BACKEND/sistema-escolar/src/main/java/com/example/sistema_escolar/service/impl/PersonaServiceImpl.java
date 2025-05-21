@@ -4,6 +4,8 @@ import com.example.sistema_escolar.model.Persona;
 import com.example.sistema_escolar.repository.PersonaRepository;
 import com.example.sistema_escolar.service.PersonaService;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,8 +25,8 @@ public class PersonaServiceImpl implements PersonaService {
     }
 
     @Override
-    public List<Persona> obtenerPersonas() {
-        return personaRepository.findAll();
+    public Page<Persona> listarPersonas(Pageable pageable) {
+        return personaRepository.findAll(pageable);
     }
 
     @Override

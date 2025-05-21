@@ -11,7 +11,7 @@ public class ProfesorDTO {
     private String especialidad;
     private LocalDate fechaContratacion;
 
-    // ✅ Getters y Setters
+    // Getters y Setters
 
     public String getNombre() {
         return nombre;

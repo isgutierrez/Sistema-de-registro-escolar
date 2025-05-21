@@ -4,3 +4,40 @@
   </h1>
   <hr class="w-3/4 mt-2 bg-gray-100"/>
 </div>
+<div class="flex justify-end mb-4">
+  <button
+    pButton
+    type="button"
+    label="Agregar Inscripcion"
+    icon="pi pi-plus"
+    (click)="abrirModal()"
+    class="mt-2 px-4 py-1 p-button-sm bg-blue-600 hover:bg-blue-700 text-white rounded-md"
+  >
+    Añadir Inscripcion
+  </button>
+</div>
+<app-tabla
+  [columns]="columns"
+  [data]="inscripciones"
+  [loading]="loading"
+  [actions]="true"
+  (onEdit)="abrirModal($event)"
+  (onDelete)="eliminar($event)"
+>
+</app-tabla>
+<p-paginator
+  [rows]="pageSize"
+  [totalRecords]="totalElements"
+  [first]="currentPage * pageSize"
+  (onPageChange)="onPageChange($event)"
+>
+</p-paginator>
+
+<app-modalform
+  [visible]="modalVisible"
+  [title]="'Formulario de Persona'"
+  [fields]="fields"
+  [formData]="formData"
+  (save)="guardarInscripcion($event)"
+  (close)="cerrarModal()"
+></app-modalform>
