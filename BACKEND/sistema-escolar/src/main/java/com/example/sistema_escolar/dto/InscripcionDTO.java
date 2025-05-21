@@ -15,7 +15,6 @@ public class InscripcionDTO {
     private LocalDate fechaInscripcion;
 
     // Getters y Setters
-
     public Long getIdEstudiante() {
         return idEstudiante;
     }
