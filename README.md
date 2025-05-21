@@ -1,43 +1,34 @@
-# Sistema-de-registro-escolar
-Desarrollo de un sistema de registro escolar para una prueba tecnica, el frontend está realizado con Angular y PrimeNG, y el backend con Java Spring
+# 📘 Sistema de Registro Escolar
 
-<<<<<<< HEAD
-=======
-Este sistema permite gestionar información de personas, estudiantes y profesores. Está compuesto por:
+Este proyecto es parte de una prueba técnica. Consiste en un sistema completo para la gestión escolar, desarrollado con **Angular** y **PrimeNG** en el frontend, y **Spring Boot** en el backend. Usa **PostgreSQL** como base de datos.
 
->>>>>>> 2c00eb7 (front)
-- Backend: Java con Spring Boot
-- Frontend: Angular
-- Base de datos: PostgreSQL
+## 🧩 Tecnologías
+
+- 🧪 Backend: Java 17+, Spring Boot, Maven
+- 🌐 Frontend: Angular 15+, PrimeNG, TailwindCSS
+- 🗄️ Base de Datos: PostgreSQL
+- 🐳 Docker (opcional para base de datos y backend)
 
 ---
 
 ## 📦 Requisitos
 
 ### Backend
-- Java 17+
-- Maven 3.6+
-- PostgreSQL 12+
-- Docker (opcional)
+- [Java 17+](https://adoptium.net/)
+- [Maven 3.6+](https://maven.apache.org/)
+- [PostgreSQL 12+](https://www.postgresql.org/)
+- [Docker (opcional)](https://www.docker.com/)
 
 ### Frontend
-<<<<<<< HEAD
-- Node.js 18
-=======
-- Node.js 16+
->>>>>>> 2c00eb7 (front)
-- Angular CLI 15+
+- [Node.js 16+](https://nodejs.org/)
+- [Angular CLI 15+](https://angular.io/cli)
 
 ---
 
-## ⚙️ Instalación
+## 🚀 Instalación y ejecución
 
 ### 1. Clona el repositorio
 
-<<<<<<< HEAD
--- git clone https://github.com/isgutierrez/Sistema-de-registro-escolar.git
-=======
 ```bash
 git clone https://github.com/isgutierrez/Sistema-de-registro-escolar.git
->>>>>>> 2c00eb7 (front)
-cd sistema-escolar
+cd Sistema-de-registro-escolar
